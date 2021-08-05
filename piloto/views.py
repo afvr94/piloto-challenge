@@ -12,7 +12,8 @@ from .filters import EventFilter
 def index(request):
     return HttpResponse("Server is up")
 
-
+# TODO: Add summary route (with filter recipient or a startDate/endDate combination.)
+# TODO: Timestamp can be returned as UTC?	
 class EventViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):
     serializer_class = EventSerializer
     filterset_class = EventFilter

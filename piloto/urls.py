@@ -10,6 +10,7 @@ router.register(
     r"events", EventViewSet, "events"
 )
 
+# TODO: Change route to something like /piloto_admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),

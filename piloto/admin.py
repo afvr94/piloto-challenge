@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.http.request import HttpRequest
 from .models import Event
 
+# TODO: Add in readme how to access admin portal
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('id', 'recipient', 'action', 'subject')

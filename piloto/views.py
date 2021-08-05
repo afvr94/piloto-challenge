@@ -13,7 +13,6 @@ def index(request):
     return HttpResponse("Server is up")
 
 # TODO: Add summary route (with filter recipient or a startDate/endDate combination.)
-# TODO: Timestamp can be returned as UTC?
 # TODO: Add tests
 # TODO: Add test-data.json	
 class EventViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin):

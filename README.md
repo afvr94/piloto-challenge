@@ -14,7 +14,7 @@ The project will consist of building a simple web server that can store and serv
 
 - As a client, I want be able retrieve a summery event count for each action (open, click) filterable by recipient or a startDate/endDate combination.
 
-## HOW TO
+## How To
 
 To run the backend locally is recommended to create a virtual environment.
 

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('piloto', '0001_initial'),
+        ("piloto", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='event',
-            name='subject',
-            field=models.CharField(help_text='Email subject', max_length=200),
+            model_name="event",
+            name="subject",
+            field=models.CharField(help_text="Email subject", max_length=200),
         ),
     ]

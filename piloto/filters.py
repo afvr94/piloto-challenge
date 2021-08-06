@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from .serializers import StartDateRangeSerializer
 from .models import Event
 
+
 class EventFilter(FilterSet):
     timestamp = DateFilter(method="filter_timestamp")
 
@@ -22,4 +23,4 @@ class EventFilter(FilterSet):
 
     class Meta:
         model = Event
-        fields = ('action', 'subject')
+        fields = ("action", "subject")

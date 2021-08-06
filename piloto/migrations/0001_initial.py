@@ -8,18 +8,39 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('action', models.CharField(choices=[('open', 'OPEN'), ('click', 'CLICK')], help_text='Action taken on emails', max_length=5)),
-                ('subject', models.CharField(choices=[('open', 'OPEN'), ('click', 'CLICK')], help_text='Email subject', max_length=200)),
-                ('recipient', models.EmailField(max_length=254)),
-                ('timestamp', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "action",
+                    models.CharField(
+                        choices=[("open", "OPEN"), ("click", "CLICK")],
+                        help_text="Action taken on emails",
+                        max_length=5,
+                    ),
+                ),
+                (
+                    "subject",
+                    models.CharField(
+                        choices=[("open", "OPEN"), ("click", "CLICK")],
+                        help_text="Email subject",
+                        max_length=200,
+                    ),
+                ),
+                ("recipient", models.EmailField(max_length=254)),
+                ("timestamp", models.DateTimeField(auto_now=True)),
             ],
         ),
     ]

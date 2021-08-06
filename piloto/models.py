@@ -4,22 +4,21 @@ from django.db.models import CharField
 from django.db.models import UUIDField
 from django.db.models import EmailField
 from django.db.models import DateTimeField
-from .constants import Event
+from .constants import EventType
 
 
-# TODO: Should this events corresponde to an user/client? or assume its only one user?
 class Event(Model):
+    """
+    Represents event that can be made to an email
+    """
+
     id = UUIDField(primary_key=True, default=uuid4, editable=False)
     action = CharField(
-        choices=Event.choices(),
-        help_text="Action taken on emails",
-        max_length=5
+        choices=EventType.choices(), help_text="Action taken on email", max_length=5
     )
-    subject = CharField(
-        help_text="Email subject",
-        max_length=200
-    )
+    subject = CharField(help_text="Email subject", max_length=200)
     recipient = EmailField(
+        help_text="Email address",
         max_length=254,
     )
-    timestamp = DateTimeField(auto_now=True)
+    timestamp = DateTimeField(auto_now=True, help_text="Timestamp of the event")

@@ -2,6 +2,7 @@ from datetime import datetime
 from datetime import timedelta
 from typing import Dict
 from typing import Any
+import pytz
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 from rest_framework.serializers import DateField
@@ -40,7 +41,7 @@ class StartDateRangeSerializer(Serializer):
 
         start_string = validated_data["timestamp"].strftime("%Y-%m-%d")
 
-        start_time = parse(start_string)
+        start_time = parse(start_string).replace(tzinfo=pytz.utc)
         end_time = start_time + timedelta(days=1) - timedelta(seconds=1)
 
         return {"start_time": start_time, "end_time": end_time}
@@ -68,7 +69,11 @@ class DateRangeSerializer(Serializer):
                 {"date_range": "start date can not be greater than end date"}
             )
 
-        start_date = parse(start_string)
-        end_date = parse(end_string) + timedelta(days=1) - timedelta(seconds=1)
+        start_date = parse(start_string).replace(tzinfo=pytz.utc)
+        end_date = (
+            parse(end_string).replace(tzinfo=pytz.utc)
+            + timedelta(days=1)
+            - timedelta(seconds=1)
+        )
 
         return {"start_date": start_date, "end_date": end_date}

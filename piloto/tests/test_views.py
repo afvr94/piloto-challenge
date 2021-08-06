@@ -7,7 +7,7 @@ from unittest import mock
 
 
 class EventViewSetTest(APITestCase):
-    def test_get_events(self):
+    def test_get_events_success(self):
         Event.objects.create(
             action=EventType.OPEN.value,
             subject="Subscribe now",
@@ -21,7 +21,7 @@ class EventViewSetTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
 
-    def test_get_events_by_action(self):
+    def test_get_events_by_action_success(self):
         Event.objects.create(
             action=EventType.OPEN.value,
             subject="Subscribe now",
@@ -40,7 +40,7 @@ class EventViewSetTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
 
-    def test_get_events_failure_invalid_action(self):
+    def test_get_events_invalid_action_failure(self):
         Event.objects.create(
             action=EventType.OPEN.value,
             subject="Subscribe now",
@@ -60,7 +60,7 @@ class EventViewSetTest(APITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data["action"][0], expected_error)
 
-    def test_get_events_by_recipient(self):
+    def test_get_events_by_recipient_success(self):
         Event.objects.create(
             action=EventType.OPEN.value,
             subject="Subscribe now",
@@ -79,7 +79,7 @@ class EventViewSetTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
 
-    def test_get_events_by_timestamp(self):
+    def test_get_events_by_timestamp_success(self):
         mocked = datetime(2021, 8, 20, 12, 0, 0, tzinfo=pytz.utc)
         with mock.patch("django.utils.timezone.now", mock.Mock(return_value=mocked)):
             Event.objects.create(
@@ -103,7 +103,7 @@ class EventViewSetTest(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
 
-    def test_get_events_failure_invalid_timestamp(self):
+    def test_get_events_invalid_timestamp_failure(self):
         mocked = datetime(2021, 8, 20, 12, 0, 0, tzinfo=pytz.utc)
         with mock.patch("django.utils.timezone.now", mock.Mock(return_value=mocked)):
             Event.objects.create(
@@ -126,9 +126,8 @@ class EventViewSetTest(APITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data["timestamp"][0], expected_error)
 
-    def test_post_event(self):
+    def test_post_event_success(self):
         pre_count = Event.objects.count()
-
         data = {
             "action": "click",
             "subject": "Read now",
@@ -136,11 +135,90 @@ class EventViewSetTest(APITestCase):
         }
 
         response = self.client.post("/events", data)
-
         count = Event.objects.count()
 
         self.assertEqual(pre_count + 1, count)
         self.assertEqual(response.status_code, 201)
+
+    def test_post_event_invalid_action_failure(self):
+        pre_count = Event.objects.count()
+        data = {
+            "action": "some random action",
+            "subject": "Read now",
+            "recipient": "eric.santos@gmail.com",
+        }
+
+        response = self.client.post("/events", data)
+        count = Event.objects.count()
+        expected_error = '"some random action" is not a valid choice.'
+
+        self.assertEqual(pre_count, count)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["action"][0], expected_error)
+
+    def test_post_event_invalid_email_failure(self):
+        pre_count = Event.objects.count()
+
+        data = {
+            "action": "click",
+            "subject": "Read now",
+            "recipient": "eric.santos@gmail",
+        }
+        response = self.client.post("/events", data)
+        count = Event.objects.count()
+        expected_error = "Enter a valid email address."
+
+        self.assertEqual(pre_count, count)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["recipient"][0], expected_error)
+
+    def test_post_event_empty_action_failure(self):
+        pre_count = Event.objects.count()
+        data = {
+            "action": "",
+            "subject": "Read now",
+            "recipient": "eric.santos@gmail.com",
+        }
+
+        response = self.client.post("/events", data)
+        count = Event.objects.count()
+        expected_error = '"" is not a valid choice.'
+
+        self.assertEqual(pre_count, count)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["action"][0], expected_error)
+
+    def test_post_event_empty_email_failure(self):
+        pre_count = Event.objects.count()
+        data = {
+            "action": "click",
+            "subject": "Read now",
+            "recipient": "",
+        }
+
+        response = self.client.post("/events", data)
+        count = Event.objects.count()
+        expected_error = "This field may not be blank."
+
+        self.assertEqual(pre_count, count)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["recipient"][0], expected_error)
+
+    def test_post_event_empty_email_failure(self):
+        pre_count = Event.objects.count()
+        data = {
+            "action": "click",
+            "subject": "",
+            "recipient": "eric.santos@gmail.com",
+        }
+
+        response = self.client.post("/events", data)
+        count = Event.objects.count()
+        expected_error = "This field may not be blank."
+
+        self.assertEqual(pre_count, count)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["subject"][0], expected_error)
 
 
 class EventSummaryViewSetTest(APITestCase):

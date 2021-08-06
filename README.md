@@ -58,6 +58,7 @@ The project will consist of building a simple web server that can store and serv
   ```
 
   `NOTE: assumption /events return all events since no user management/validation is provided`
+  `NOTE: assumption timestamp is in UTC`
 
 - GET `/events/summary` <br />
   A route to serve event count for each action (open, click) filterable by recipient or a start_date/end_date combination. <br />
@@ -87,11 +88,15 @@ The project will consist of building a simple web server that can store and serv
   ```
   // Event summary
   {
-    "open": 5,
-    "closed: 10
+    id: "123e4567-e89b-12d3-a456-426614174000",
+    action: "click",
+    subject: "Subscribe Now",
+    recipient: "eric@piloto151.com",
+    timestamp: "2021-02-11T13:57:35.780Z"
   }
   ```
 
+  `NOTE: assumption subject can not be empty`
   `NOTE: assumption subject can not be empty`
 
 ## Setup

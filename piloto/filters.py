@@ -23,4 +23,4 @@ class EventFilter(FilterSet):
 
     class Meta:
         model = Event
-        fields = ("action", "subject")
+        fields = ("action", "recipient")

@@ -21,7 +21,6 @@ def index(request):
     return HttpResponse("Server is up")
 
 
-# TODO: Add tests
 class EventViewSet(
     GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin
 ):
@@ -42,9 +41,15 @@ class EventViewSet(
         # Fetch recipient from query params
         recipient = self.request.query_params.get("recipient", None)
 
+        # Validate if not an empty string
+        start_date = None if start_date is None or len(start_date) == 0 else start_date
+        end_date = None if end_date is None or len(end_date) == 0 else end_date
+
+        # if start date is not present but end date is return 400
         if start_date is None and end_date is not None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+        # if end date is not present but start date is return 400
         if end_date is None and start_date is not None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 

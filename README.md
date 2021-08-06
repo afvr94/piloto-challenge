@@ -156,6 +156,12 @@ python manage.py createsuperuser
 
 Then go to: `http://localhost:8000/piloto_admin` (if using default port)
 
-#### TESTS
+### TESTS
 
 To run tests use the `python manage.py test`
+
+### TODO
+
+- Dockerize
+- Validate recipient email in query params
+- Deploy

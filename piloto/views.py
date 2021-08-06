@@ -22,7 +22,6 @@ def index(request):
 
 
 # TODO: Add tests
-# TODO: Add test-data.json
 class EventViewSet(
     GenericViewSet, ListModelMixin, RetrieveModelMixin, CreateModelMixin
 ):

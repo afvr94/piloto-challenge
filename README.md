@@ -120,6 +120,24 @@ python manage.py migrate
 
 This will generate a new SQLite database with all the data structure necessary to run the application.
 
+###### OPTIONAL (recommended)
+
+There is a data dump names `test-data.json` that can be imported to populate the database with usable data and a default superuser. To load the data run
+
+```
+python manage.py loaddata test-data.json
+
+# user : admin
+# pass : 1234
+
+```
+
+To create a new superuser you can run the create super user command and follow the instruction.
+
+```
+python manage.py createsuperuser
+```
+
 #### LOCAL SERVER
 
 To run a local server use the command

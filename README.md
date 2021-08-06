@@ -16,6 +16,12 @@ The project will consist of building a simple web server that can store and serv
 
 ## Proposed Solution
 
+### Stack
+
+- Python
+- Django
+- Django Rest Framework
+
 ### Models
 
 - `Event` <br />

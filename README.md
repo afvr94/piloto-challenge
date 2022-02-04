@@ -50,7 +50,7 @@ The project will consist of building a simple web server that can store and serv
     id: "123e4567-e89b-12d3-a456-426614174000",
     action: "click",
     subject: "Subscribe Now",
-    recipient: "eric@piloto151.com",
+    recipient: "me@abdielvega.com",
     timestamp: "2021-02-11T13:57:35.780Z"
   }
   ```
@@ -89,7 +89,7 @@ The project will consist of building a simple web server that can store and serv
     id: "123e4567-e89b-12d3-a456-426614174000",
     action: "click",
     subject: "Subscribe Now",
-    recipient: "eric@piloto151.com",
+    recipient: "me@abdielvega.com",
     timestamp: "2021-02-11T13:57:35.780Z"
   }
   ```

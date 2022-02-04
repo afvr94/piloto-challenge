@@ -1,5 +1,3 @@
-# Piloto Challenge
-
 ## Introduction
 
 The project will consist of building a simple web server that can store and serve two types email events, open and click. People should be able to get all events related to the client or filter by action, recipient or timestamp.
